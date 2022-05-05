@@ -171,7 +171,6 @@ file_list.remove("Applet")
 
 
 # info 未处理的精确结果
-user_file_name = "wxid_tn7r68mg8aws22"
 def get_info(user_file_name):
     with open(file_path+user_file_name+"\\config\\AccInfo.dat", mode="r", encoding="ISO-8859-1") as f:
         # 处理raw数据
