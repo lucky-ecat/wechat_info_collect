@@ -165,9 +165,19 @@ else:
     file_path = value
 
 # 获取用户文件
-file_list = os.listdir(file_path)
-file_list.remove("All Users")
-file_list.remove("Applet")
+try:
+    file_list = os.listdir(file_path)
+    file_list.remove("All Users")
+    file_list.remove("Applet")
+except:
+    print("\nfailed to find the path by the script")
+    print("Please enter the path of your [WeChat Files]")
+    print("You can find the path in your WeChat's setting")
+    print("It looks like [x:\\\\xxx\\xxx\\WeChat Files]")
+    file_path = input("The path : ") + "\\"
+    file_list = os.listdir(file_path)
+    file_list.remove("All Users")
+    file_list.remove("Applet")
 
 
 # info 未处理的精确结果
@@ -257,6 +267,7 @@ def get_info(user_file_name):
     print("\n" + "--------------------------------------------")
 
 # 运行
+print("============================================")
 for user_file_name in file_list:
     #try:
     get_info(user_file_name)

@@ -10,4 +10,10 @@
   
 演示截图:  
 
-![image](https://user-images.githubusercontent.com/19652329/166911062-16285e3d-e7c1-45a8-af37-33cab373c2f9.png)
+![image](https://user-images.githubusercontent.com/19652329/166911062-16285e3d-e7c1-45a8-af37-33cab373c2f9.png)  
+
+=====================================  
+
+2022年5月9日更新:
+增加自动化寻找地址失败后手动输入存储地址功能
+=====================================  
