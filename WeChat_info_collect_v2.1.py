@@ -292,7 +292,7 @@ def get_info(user_file_name):
             req_json = requests.post(applet_search_url, headers=headers, data=data).json()
             applets.append(req_json["items"][0]["weapp"]["nickname"])
             #print(req["items"][0]["weapp"]["nickname"])
-    print("The applets : " + str(applets))
+        print("The applets : " + str(applets))
 
 
     # 获取历史头像网址
