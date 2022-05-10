@@ -278,6 +278,6 @@ for user_file_name in file_list:
 
 print(" 1. The email is very unreliable, you can ignore it\n",
     "2. There are only cities of the mainland\n",
-    "3. The informations in [The other info] are some ciphertext and abbreviation for region\n",
+    "3. The information in [The other info] is some ciphertext and abbreviation for region\n",
     "4. There is some interference information in [The other info]"
 )
