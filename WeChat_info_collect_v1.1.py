@@ -4,6 +4,8 @@ import win32con
 import getpass
 import re
 import os
+import win32timezone
+
 
 provinces = '''
 北京(BeiJing)
@@ -231,7 +233,7 @@ def get_info(user_file_name):
             number = numbers.group(0)
             info.remove(number)
             break
-    print("The number : " + number)
+    print("The phone : " + number)
 
     # 获取疑似邮箱, 邮箱参考性极低
     for misc in info:
