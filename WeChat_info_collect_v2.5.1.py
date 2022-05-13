@@ -153,7 +153,7 @@ if os_name == "posix":
     # linux/unix
     os_name = "linux"
 
-################################### Windows - 获取文件存储位置
+# 获取文件存储位置
 if os_name == "windows":
     import win32api
     import win32con
@@ -198,7 +198,6 @@ if os_name == "windows":
         file_list = os.listdir(file_path)
         file_list.remove("All Users")
         file_list.remove("Applet")
-######################################################################
 
 # mac地址
 if os_name == "linux":
@@ -373,12 +372,9 @@ def get_info(user_file_name):
 # 运行
 
 
-# file_list存放的是wxid文件列表(Windows除去all user 以及 applet)
-# mac时, 应该读取
-# #/Users/apple/library/containers/com.tencent.xinWECHAT/data/library/application support/com.tencent.xinWeChat/2.0b4.0.9/
-# 读取这个目录下所有的32位md5加秘名称文件, 即用户文件
 # 理论来说2.0b4.0.9应该不会变
-
+# 这个命名从18年到现在似乎没变过, 所以就不麻烦写代码来获取了
+# 以后要是变了改了就是
 for user_file_name in file_list:
     #try:
     if os_name == "linux":
@@ -395,5 +391,6 @@ for user_file_name in file_list:
 print(" 1. The email is very unreliable, you can ignore it\n",
     "2. There are only cities of the mainland\n",
     "3. The information in [The other info] is some ciphertext and abbreviation for region\n",
-    "4. There is some interference information in [The other info]"
+    "4. There is some interference information in [The other info]\n",
+    "5. 薛定的饿猫, email: cool_ecat@163.com, 公众号: 饿猫的小黑屋"
 )
