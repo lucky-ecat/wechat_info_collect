@@ -9,7 +9,12 @@ token在登陆后的url中直接可见, 参数名即token
 
 
 安装环境依赖
+Windows需要pypiwin32, mac无需  
+
 >pip3 install pypiwin32  
+>pip3 install requests  
+
+
   
 演示截图:  
 
@@ -22,6 +27,11 @@ https://mp.weixin.qq.com/s?__biz=Mzg4NDU4OTQ1NA==&mid=2247484267&idx=1&sn=c9ce06
 
 
 ![image](https://user-images.githubusercontent.com/19652329/167623636-925c3302-7811-4031-a6d6-f055481f1110.png)  
+
+=====================================  
+2022年5月13日更新:  
+增加对于mac的支持, 暂不支持导出小程序名单  
+
 
 =====================================  
 
