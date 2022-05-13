@@ -2,6 +2,8 @@
 
 # wechat_info_collect  
 
+公众号: 饿猫的小黑屋  
+
 新增对于mac的支持  
 支持系统: Windows mac  
   
