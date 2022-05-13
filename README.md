@@ -15,7 +15,7 @@
   
 支持导出所有微信曾使用过的所有小程序名单:   
     如果需要查看曾使用过的小程序名单, 需要输入可用的微信公众号cookie和token  
-    cookieappmsglist开头  
+    cookie以appmsglist开头  
     token在登陆后的url中直接可见, 参数名为token  
   
   
