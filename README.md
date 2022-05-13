@@ -8,7 +8,8 @@ cookie可抓包查看
 token在登陆后的url中直接可见, 参数名即token  
 
 
-安装环境依赖
+安装环境依赖  
+
 Windows需要pypiwin32, mac无需  
 
 >pip3 install pypiwin32  
