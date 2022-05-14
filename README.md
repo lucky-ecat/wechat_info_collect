@@ -1,6 +1,6 @@
 
 
-# wechat_info_collect  
+# 电子取证 | wechat_info_collect  
 
 致谢(这些师傅提出了bug, 并提供了自己的环境和资料以帮助修复):  
   CHLnG, 山山而川  
