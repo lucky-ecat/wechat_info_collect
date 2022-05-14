@@ -301,7 +301,7 @@ def get_info(user_file_name):
 
         if os_name == "windows":
             print("The city : " + province + " - " + city)
-        if os_name == "linux" and c_p_flag == 1:
+        if os_name == "linux" and "CN" in c_p_c and c_p_flag == 1:
             print("The city : " + c_p[0] + " - " + c_p[1])
 
         # 获取使用过的小程序
