@@ -253,10 +253,13 @@ def get_info(user_file_name):
                     province = misc
                 if misc.lower() in cities.lower() and len(misc) >= 2:
                     city = misc
-            if province != "":
-                info.remove(province)
-            if city != "":
-                info.remove(city)
+            try:
+                if province != "":
+                    info.remove(province)
+                if city != "":
+                    info.remove(city)
+            except:
+                pass
 
         if os_name == "linux":
             if "CN" in c_p_c:
