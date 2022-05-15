@@ -19,7 +19,7 @@ __使用流程__:
 &emsp;&emsp;1. 直接运行脚本  
 &emsp;&emsp;2. Windows系统下会询问是否导出历史使用小程序名单(mac暂不支持该功能)  
 &emsp;&emsp;3. 如果要导出小程序使用名单, 需要输入可用的微信公众号cookie和token, token在登陆后的url中可见, cookie可f12查看, 以appmsglist开头  
-&emsp;&emsp;4. Windows下如果脚本自动搜寻微信文件存储地址失败, 则需要手动输入地址, 以[WeChat files]结尾  
+&emsp;&emsp;4. Windows下如果脚本自动搜寻微信文件存储地址失败, 会提示手动输入地址, 以[WeChat files]结尾  
   
 __下个版本预增加程序__:  
 &emsp;&emsp;1. 一键打包机器所有用户信息文件以供下载  
