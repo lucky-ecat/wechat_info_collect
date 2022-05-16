@@ -7,13 +7,13 @@
   
 __支持系统__: Windows mac  
 __支持提取信息__:  
-&emsp;&emsp;1. wxid  
+&emsp;&emsp;1. wxid(新老形式id均支持)  
 &emsp;&emsp;2. 微信号  
-&emsp;&emsp;3. 手机号  
-&emsp;&emsp;4. 绑定邮箱(参考性极低)  
-&emsp;&emsp;5. 所在城市  
-&emsp;&emsp;6. 历史使用过的小程序  
-&emsp;&emsp;7. 一些其它信息(比如不知道是什么的md5)  
+&emsp;&emsp;3. 手机号(国内外手机号均支持)  
+&emsp;&emsp;4. 绑定邮箱(参考性极低, 极不可信)  
+&emsp;&emsp;5. 所在城市(微信所设置城市)  
+&emsp;&emsp;6. 历史使用过的小程序(需要联网)  
+&emsp;&emsp;7. 一些其它信息(比如个性签名和一些不知道是什么的md5)  
   
 __使用流程__:  
 &emsp;&emsp;1. 直接运行脚本  
