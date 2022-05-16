@@ -273,6 +273,7 @@ def get_info(user_file_name):
             for misc in info:
                 if 6 < len(misc) < 20 and misc[0].isalpha() is True:
                     wx = misc
+            print("The wechat : " + wx)
             info.remove(wx)
         except:
             print("The wechat : " + wxid)
