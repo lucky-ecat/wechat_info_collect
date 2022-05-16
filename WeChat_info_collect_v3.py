@@ -429,3 +429,9 @@ for user_file_name in file_list:
             break
     if os_name == "windows":
         get_info(user_file_name)
+
+print(" 1. The email is very unreliable, you can ignore it\n",
+    "2. There are only cities of the mainland\n",
+    "3. The information in [The other info] is some ciphertext and abbreviation for region\n",
+    "4. There is some interference information in [The other info]"
+)
