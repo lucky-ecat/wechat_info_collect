@@ -3,7 +3,7 @@ import getpass
 import re
 import os
 import requests
-
+import sys
 
 provinces = '''
 北京(BeiJing)
@@ -77,9 +77,19 @@ provinces = '''
 '''
 cities = '''
 香港(XiangGang)
-
+东城区(dongcheng)
+西城区(xicheng)
+朝阳区(chaoyang)(zhaoyang)
+丰台区(fengtai)
+石景山区(shijingshan)
+海淀区(haidian)
+门头沟区(mentougou)
+房山区(fangshan)
+通州区(tongzhou)
+顺义区(shunyi)
+昌平区(changping)
+大兴区(daxing)
 澳门(AoMen)
-
 安庆(AnQing)，亳州(BoZhou)，蚌埠(BangBu)，池州(ChiZhou)，巢湖(ChaoHu)，滁州(ChuZhou)，阜阳(FuYang)，合肥(HeFei)，淮南(HuaiNan)，淮北(HuaiBei)，黄山(HuangShan)，六安(LiuAn)，马鞍山(MaAnShan)，宿州(SuZhou)，铜陵(TongLing)，芜湖(WuHu)，宣城(XuanCheng)
 
 福州(FuZhou)，龙岩(LongYan)，南平(NanPing)，宁德(NingDe)，莆田(PuTian)，泉州(QuanZhou)，三明(SanXing)，厦门(XiaMen)，漳州(ZhangZhou)
@@ -137,6 +147,7 @@ cities = '''
 杭州(HangZhou)，湖州(HuZhou)，嘉兴(JiaXing)，金华(JinHua)，丽水(LiShui)，宁波(NingBo)，衢州(QuZhou)，绍兴(ShaoXing)，台州(TaiZhou)，温州(WenZhou)，舟山(ZhouShan)
 '''
 
+
 # 判断操作系统
 os_name = os.name
 if os_name == "nt":
@@ -148,7 +159,6 @@ if os_name == "nt":
     else:
         pass
     print("============================================")
-
 if os_name == "posix":
     # linux/unix
     os_name = "linux"
@@ -209,19 +219,31 @@ if os_name == "linux":
         if len(file_name) == 32:
             file_list.append(file_name)
 
+def check_wxid_version(raw_info):
+    global wxid_version
+    if "wxid_" in raw_info:
+        wxid_version = "new_wxid"
+    else:
+        wxid_version = "old_wxid"
 
 # info 未处理的精确结果
 # 传入文件地址
 def get_info(user_file_name):
     if os_name == "windows":
-        file = file_path+user_file_name+"\\config\\AccInfo.dat"
+        file = file_path + user_file_name + "\\config\\AccInfo.dat"
     if os_name == "linux":
-        file = file_path+user_file_name+r"/account/userinfo.data"
+        file = file_path + user_file_name + r"/account/userinfo.data"
+
     with open(file, mode="r", encoding="ISO-8859-1") as f:
         # 处理raw数据
         raw_info = f.read()
+        # 获取原始wxid的版本
+        check_wxid_version(raw_info)
         if os_name == "windows":
-            raw_info = raw_info[raw_info.find("wxid"):]
+            if wxid_version == "new_wxid":
+                raw_info = raw_info[raw_info.find("wxid"):]
+            if wxid_version == "old_wxid":
+                raw_info = raw_info
         if os_name == "linux":
             c_p_c = raw_info[:raw_info.find(":")]
             raw_info = raw_info[raw_info.find("wxid"):]
@@ -231,14 +253,26 @@ def get_info(user_file_name):
                 info = info + str(char)
             else:
                 info = info + "`"
-    info = set(info.split("`"))
+        info_2 = list(set(info.split("`")))
+        info_2.sort(key=info.index)
+        info = info_2
+        info_list = []
+        for x in info:
+            if len(x) > 1:
+                info_list.append(x)
+        info = info_list
+        if wxid_version == "old_wxid":
+            for x in info:
+                an = re.search("[a-zA-Z0-9_]+", x)
+                if len(x) >= 6 and len(an.group(0)) >= 6:
+                    wxid = an.group(0)
+                    info = info[info.index(wxid):]
+                    break
 
-    if info != {''}:
+    if info != []:
         # 获取微信id
         try:
-            for misc in info:
-                if "wxid" in misc:
-                    wxid = misc
+            wxid = info[0]
             print("The wxid : " + wxid)
             info.remove(wxid)
         except:
@@ -251,8 +285,10 @@ def get_info(user_file_name):
             for misc in info:
                 if misc.lower() in provinces.lower() and len(misc) >= 2:
                     province = misc
+                    continue
                 if misc.lower() in cities.lower() and len(misc) >= 2:
                     city = misc
+                    continue
             try:
                 if province != "":
                     info.remove(province)
@@ -271,7 +307,7 @@ def get_info(user_file_name):
         # 微信号长度限制为6-20位, 且只能以字母开头
         try:
             for misc in info:
-                if 6 < len(misc) < 20 and misc[0].isalpha() is True:
+                if 6 <= len(misc) <= 20 and misc[0].isalpha() is True:
                     wx = misc
             print("The wechat : " + wx)
             info.remove(wx)
@@ -280,14 +316,21 @@ def get_info(user_file_name):
 
         # 获取手机号
         for misc in info:
-            p_numbers = r"0?(13|14|15|17|18|19)[0-9]{9}"
+            p_numbers = r"[\+0-9]+"
             p = re.compile(p_numbers)
             numbers = re.search(p, misc)
-            if numbers != None:
-                number = numbers.group(0)
-                info.remove(number)
-                break
-        print("The phone : " + number)
+            try:
+                if "+" in numbers.group(0):
+                    number = numbers.group(0)
+                else:
+                    p_numbers = r"0?(13|14|15|17|18|19)[0-9]{9}"
+                    p = re.compile(p_numbers)
+                    numbers = re.search(p, misc)
+                    number = numbers.group(0)
+            except:
+                continue
+            print("The phone : " + number)
+            info.remove(number)
 
         # 获取疑似邮箱, 邮箱参考性极低
         for misc in info:
@@ -373,9 +416,6 @@ def get_info(user_file_name):
         print("The other info : " + str(other_info))
         print("\n" + "--------------------------------------------")
 
-# 运行
-
-
 # 理论来说2.0b4.0.9应该不会变
 # 这个命名从18年到现在似乎没变过, 所以就不麻烦写代码来获取了
 # 以后要是变了改了就是
@@ -389,11 +429,3 @@ for user_file_name in file_list:
             break
     if os_name == "windows":
         get_info(user_file_name)
-    #except:
-    #print("Something wrong")
-
-print(" 1. The email is very unreliable, you can ignore it\n",
-    "2. There are only cities of the mainland\n",
-    "3. The information in [The other info] is some ciphertext and abbreviation for region\n",
-    "4. There is some interference information in [The other info]",
-)
