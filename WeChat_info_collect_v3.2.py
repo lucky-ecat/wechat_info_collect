@@ -341,7 +341,11 @@ def get_info(user_file_name):
                 break
             else:
                 email = "--"
-        print("The email maybe is : " + email)
+        if "*" in email:
+            email_ = email.replace("*", "")
+        else:
+            email_ = email
+        print("The email maybe is : " + email_)
         if email != "--":
             info.remove(email)
 
