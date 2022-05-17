@@ -315,6 +315,7 @@ def get_info(user_file_name):
             print("The wechat : " + wxid)
 
         # 获取手机号
+        print(info)
         for misc in info:
             p_numbers = r"[\+0-9]+"
             p = re.compile(p_numbers)
@@ -329,8 +330,10 @@ def get_info(user_file_name):
                     number = numbers.group(0)
             except:
                 continue
+            if "*" in number:
+                info.remove(number + "*")
+                number = number.replace("*", "")
             print("The phone : " + number)
-            info.remove(number)
 
         # 获取疑似邮箱, 邮箱参考性极低
         for misc in info:
