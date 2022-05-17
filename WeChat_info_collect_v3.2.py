@@ -315,7 +315,6 @@ def get_info(user_file_name):
             print("The wechat : " + wxid)
 
         # 获取手机号
-        print(info)
         for misc in info:
             p_numbers = r"[\+0-9]+"
             p = re.compile(p_numbers)
