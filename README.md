@@ -28,6 +28,9 @@ __结果导出__:
   &emsp;&emsp;本来也没多少数据, 就不加导出功能了, 有需要的话可以使用重定向来写入文本  
   >python .\WeChat_info_collect_v3.3.py > result.txt
   >no # 这里是选择是否需要导出小程序使用名单, 但是用上面的命令来重定向写的话, 不会有提示  
+  >如果需要导出的话, 按照yes - cookie - token 的顺序填写即可  
+  ![image](https://user-images.githubusercontent.com/19652329/168786080-319e88aa-b240-4f86-9de9-42a8d67a4e78.png)  
+
 
 __下个版本预增加程序__:  
 &emsp;&emsp;1. 一键打包机器所有用户信息文件以供下载  
