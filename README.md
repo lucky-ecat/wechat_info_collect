@@ -24,6 +24,11 @@ __使用流程__:
 &emsp;&emsp;3. 如果要导出小程序使用名单, 需要输入可用的微信公众号cookie和token, token在登陆后的url中可见, cookie可f12查看, 以appmsglist开头  
 &emsp;&emsp;4. Windows下如果脚本自动搜寻微信文件存储地址失败, 会提示手动输入地址, 以[WeChat files]结尾  
   
+__结果导出__:  
+  &emsp;&emsp;本来也没多少数据, 就不加导出功能了, 有需要的话可以使用重定向来写入文本  
+  >python .\WeChat_info_collect_v3.3.py > result.txt
+  >no # 这里是选择是否需要导出小程序使用名单, 但是用上面的命令来重定向写的话, 不会有提示  
+
 __下个版本预增加程序__:  
 &emsp;&emsp;1. 一键打包机器所有用户信息文件以供下载  
 &emsp;&emsp;2. 增加参数-r, 对文件夹中所有信息文件进行信息提取  
