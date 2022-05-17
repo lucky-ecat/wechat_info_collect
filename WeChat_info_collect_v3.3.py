@@ -265,16 +265,23 @@ def get_info(user_file_name):
             for x in info:
                 an = re.search("[a-zA-Z0-9_]+", x)
                 if len(x) >= 6 and len(an.group(0)) >= 6:
-                    wxid = an.group(0)
-                    info = info[info.index(wxid):]
+                    d_list = r"!@#$%^&*()+={}|:\"<>?[]\;',./`~'"
+                    flag_id = 0
+                    for i in x:
+                        if i in d_list:
+                            wxid = x.replace(i, "")
+                            flag_id = 1
+                    if flag_id == 0:
+                        wxid = an.group(0)
                     break
+            info = info[info.index(x):]
+            info[0] = wxid
 
     if info != []:
         # 获取微信id
         try:
             wxid = info[0]
             print("The wxid : " + wxid)
-            info.remove(wxid)
         except:
             pass
 
@@ -320,7 +327,7 @@ def get_info(user_file_name):
             p = re.compile(p_numbers)
             numbers = re.search(p, misc)
             try:
-                if "+" in numbers.group(0):
+                if "+" in numbers.group(0) and len(numbers.group(0) >= 6):
                     number = numbers.group(0)
                 else:
                     p_numbers = r"0?(13|14|15|17|18|19)[0-9]{9}"
@@ -330,9 +337,14 @@ def get_info(user_file_name):
             except:
                 continue
             if "*" in number:
-                info.remove(number + "*")
                 number = number.replace("*", "")
             print("The phone : " + number)
+            try:
+                info.remove(number)
+            except:
+                info.remove(number + "*")
+            break
+
 
         # 获取疑似邮箱, 邮箱参考性极低
         for misc in info:
@@ -417,7 +429,10 @@ def get_info(user_file_name):
         # 杂项数据
         other_info = []
         for misc in info:
-            if len(misc) > 30 or (len(misc) >= 2 and (misc.isdigit() == True or misc.isalpha()) == True):
+            if len(misc) > 30:
+                if "*" in misc:
+                    misc = misc.replace("*", "")
+            if len(misc) > 30 or (len(misc) >= 2 and misc.isdigit() is True):
                 other_info.insert(-1, misc)
         print("The other info : " + str(other_info))
         print("\n" + "--------------------------------------------")
