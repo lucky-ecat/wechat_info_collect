@@ -348,7 +348,7 @@ def get_info(user_file_name):
 
         # 获取疑似邮箱, 邮箱参考性极低
         for misc in info:
-            if "@" in misc and len(misc) > 3:
+            if "@" in misc and len(misc) > 3 and "." in misc:
                 email = misc
                 break
             else:
@@ -416,15 +416,27 @@ def get_info(user_file_name):
 
         # 获取历史头像网址
         head_url = []
+        rm_url = []
         for misc in info:
-            if "http" in misc:
-                head_url.insert(-1, misc)
+            if "http://" in misc:
+                index_http = misc.find("http")
+                misc_http = misc[index_http:]
+                if "*" in misc_http:
+                    misc_2 = misc_http.replace("*", "")
+                    head_url.append(misc_2)
+                    rm_url.append(misc)
+                else:
+                    head_url.insert(-1, misc_http)
+                    rm_url.append(misc)
         if head_url != []:
             print("The history_head_img : " + str(head_url))
         else:
             print("The history_head_img : --")
-        for url in head_url:
-            info.remove(url)
+        for url in rm_url:
+            try:
+                info.remove(url)
+            except:
+                info.remove(url + "*")
 
         # 杂项数据
         other_info = []
