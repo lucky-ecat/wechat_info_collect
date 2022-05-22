@@ -147,7 +147,6 @@ cities = '''
 杭州(HangZhou)，湖州(HuZhou)，嘉兴(JiaXing)，金华(JinHua)，丽水(LiShui)，宁波(NingBo)，衢州(QuZhou)，绍兴(ShaoXing)，台州(TaiZhou)，温州(WenZhou)，舟山(ZhouShan)
 '''
 
-
 # 判断操作系统
 os_name = os.name
 if os_name == "nt":
@@ -167,6 +166,7 @@ if os_name == "posix":
 if os_name == "windows":
     import win32api
     import win32con
+
     reg_root = win32con.HKEY_USERS
     reg_path = ""
 
@@ -195,7 +195,7 @@ if os_name == "windows":
 
     # 获取用户文件
     try:
-        #print(file_path)
+        # print(file_path)
         file_list = os.listdir(file_path)
         file_list.remove("All Users")
         file_list.remove("Applet")
@@ -213,11 +213,13 @@ if os_name == "windows":
 if os_name == "linux":
     file_list = []
     user_name = os.getlogin()
-    file_path = "/users/" + user_name + "/library/containers/com.tencent.xinWECHAT/data/library/application support/com.tencent.xinWeChat/2.0b4.0.9/"
+    file_path = "/Users/" + user_name + "/library/containers/com.tencent.xinWECHAT/data/library/application " \
+                                        "support/com.tencent.xinWeChat/2.0b4.0.9/"
     files_list = os.listdir(file_path)
     for file_name in files_list:
         if len(file_name) == 32:
             file_list.append(file_name)
+
 
 def check_wxid_version(raw_info):
     global wxid_version
@@ -226,13 +228,19 @@ def check_wxid_version(raw_info):
     else:
         wxid_version = "old_wxid"
 
+
 # info 未处理的精确结果
 # 传入文件地址
 def get_info(user_file_name):
     if os_name == "windows":
         file = file_path + user_file_name + "\\config\\AccInfo.dat"
+        file_size = os.path.getsize(file)
     if os_name == "linux":
         file = file_path + user_file_name + r"/account/userinfo.data"
+        file_size = os.path.getsize(file)
+
+    if file_size == 0:
+        return
 
     with open(file, mode="r", encoding="ISO-8859-1") as f:
         # 处理raw数据
@@ -345,7 +353,6 @@ def get_info(user_file_name):
                 info.remove(number + "*")
             break
 
-
         # 获取疑似邮箱, 邮箱参考性极低
         for misc in info:
             if "@" in misc and len(misc) > 3 and "." in misc:
@@ -410,9 +417,8 @@ def get_info(user_file_name):
 
                     req_json = requests.post(applet_search_url, headers=headers, data=data).json()
                     applets.append(req_json["items"][0]["weapp"]["nickname"])
-                    #print(req["items"][0]["weapp"]["nickname"])
+                    # print(req["items"][0]["weapp"]["nickname"])
                 print("The applets : " + str(applets))
-
 
         # 获取历史头像网址
         head_url = []
@@ -449,13 +455,14 @@ def get_info(user_file_name):
         print("The other info : " + str(other_info))
         print("\n" + "--------------------------------------------")
 
+
 # 理论来说2.0b4.0.9应该不会变
 # 这个命名从18年到现在似乎没变过, 所以就不麻烦写代码来获取了
 # 以后要是变了改了就是
 for user_file_name in file_list:
-    #try:
+    # try:
     if os_name == "linux":
-        is_null = os.listdir(file_path+user_file_name)
+        is_null = os.listdir(file_path + user_file_name)
         if "Account" in is_null:
             get_info(user_file_name)
         else:
@@ -464,7 +471,7 @@ for user_file_name in file_list:
         get_info(user_file_name)
 
 print(" 1. The email is very unreliable, you can ignore it\n",
-    "2. There are only cities of the mainland\n",
-    "3. The information in [The other info] is some ciphertext and abbreviation for region\n",
-    "4. There is some interference information in [The other info]"
-)
+      "2. There are only cities of the mainland\n",
+      "3. The information in [The other info] is some ciphertext and abbreviation for region\n",
+      "4. There is some interference information in [The other info]"
+      )
