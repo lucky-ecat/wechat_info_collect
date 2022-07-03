@@ -9,6 +9,11 @@
 
 __新增EXE版本__:  
 直接运行即可, 需要导出的话可使用 wechat_info_collect_win.exe > result.txt的方式  
+去掉了大部分信息, 仅保留关键部分:  
+&emsp;&emsp;1. wxid(新老形式id均支持)  
+&emsp;&emsp;2. 微信号  
+&emsp;&emsp;3. 手机号(国内外手机号均支持)  
+&emsp;&emsp;4. 绑定邮箱(参考性存疑, 有不真实的情况)   
 解决Windows环境下无python或者py文件打包为exe过大的问题  
 采用golang编写, 暂不放源码, 后面会跟着另外一个大项目一起开源  
 这个功能会作为上述项目的杂项子模块功能  
