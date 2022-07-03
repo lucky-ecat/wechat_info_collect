@@ -9,6 +9,8 @@
 
 __新增EXE版本__:  
 解决Windows环境下无python以及py文件打包为exe过大的问题  
+采用golang编写, 暂不放源码, 后面会跟着另外一个大项目一起开源  
+  
 __支持系统__: Windows mac  
 __支持提取信息__:  
 &emsp;&emsp;1. wxid(新老形式id均支持)  
