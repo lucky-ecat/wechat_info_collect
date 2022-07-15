@@ -9,6 +9,8 @@
 
 __新增EXE版本__:  
 直接运行即可, 需要导出的话可使用 wechat_info_collect_win.exe > result.txt的方式  
+还有一部分bug没有修, 建议遇到了就用python版本, 短时间内不会修复这些bug  
+后面可能会考虑出聊天记录相关  
 去掉了大部分信息, 仅保留关键部分:  
 &emsp;&emsp;1. wxid(新老形式id均支持)  
 &emsp;&emsp;2. 微信号  
